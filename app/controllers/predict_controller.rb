@@ -1,4 +1,4 @@
-
+require 'rb-libsvm'
 
 class PredictController < ApplicationController
   def init
