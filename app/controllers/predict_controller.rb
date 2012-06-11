@@ -2,7 +2,7 @@ class PredictController < ApplicationController
   def init
     session[:model] = params[:model]
     @model_id = session[:model] 
-    format.json render :partial => "predict/init.json"
+    render :json => @model_id
   end
 
   def run
