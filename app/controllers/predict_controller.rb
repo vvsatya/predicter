@@ -28,7 +28,7 @@ class PredictController < ApplicationController
     model = Libsvm::Model.train(problem, parameter)
     
     session[:model] = model
-    render :json => model
+    render :json => "model created"
   end
 
   def run
