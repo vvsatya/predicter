@@ -2,7 +2,7 @@ require 'libsvm'
 
 class PredictController < ApplicationController
   def init
-    session[:model] = request.body.read
+    
    
 
     documents = [[1, "Why did the chicken cross the road? Because a car was coming"],
@@ -26,10 +26,19 @@ class PredictController < ApplicationController
 
     problem.set_examples(training_set.map(&:first), training_set.map(&:last))
     model = Libsvm::Model.train(problem, parameter)
+    
+    session[:model] = model
     render :json => model
   end
 
   def run
+    model = session[:model]
+    test_set = [1, "Why did the chicken cross the road? To get the worm"]
+    test_document = test_set.last.split.map{ |x| x.gsub(/\?|,|\.|\-/,'') }
+
+    doc_features = dictionary.map{|x| test_document.include?(x) ? 1 : 0 }
+    pred = model.predict(Libsvm::Node.features(doc_features))
+    render :json => "Predicted #{pred==1 ? 'funny' : 'not funny'}"
   end
 
 end
