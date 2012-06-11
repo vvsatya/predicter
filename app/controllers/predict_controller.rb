@@ -1,4 +1,4 @@
-require '/usr/local/lib/ruby/gems/1.9.1/gems/rb-libsvm-1.0.7/lib/libsvm.rb'
+require 'libsvm'
 
 class PredictController < ApplicationController
   def init
@@ -26,7 +26,7 @@ class PredictController < ApplicationController
 
     problem.set_examples(training_set.map(&:first), training_set.map(&:last))
     model = Libsvm::Model.train(problem, parameter)
-    render :json => "model created..."
+    render :json => model
   end
 
   def run
