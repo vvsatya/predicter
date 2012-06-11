@@ -7,7 +7,7 @@
 # The best way to do this would be to use ruby to accomplish
 # the task.
 #
-require 'libsvm'
+
 
 # Let take our documents and create word vectors out of them.
 # I've included labels for these already.  1 signifies that
