@@ -1,4 +1,4 @@
-require 'libsvm'
+
 
 class PredictController < ApplicationController
   def init
