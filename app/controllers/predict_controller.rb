@@ -1,8 +1,8 @@
 class PredictController < ApplicationController
   def init
-    session[:model] = params[:model]
-    @model_id = session[:model] 
-    render :json => "fooo"
+    session[:model] = request.body.read
+   
+    render :json => session[:model]
   end
 
   def run
