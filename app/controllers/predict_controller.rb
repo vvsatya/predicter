@@ -26,7 +26,7 @@ class PredictController < ApplicationController
 
     problem.set_examples(training_set.map(&:first), training_set.map(&:last))
     model = Libsvm::Model.train(problem, parameter)
-    render :json => model
+    render :json => "model created"
   end
 
   def run
