@@ -1,4 +1,4 @@
-
+require '/usr/local/lib/ruby/gems/1.9.1/gems/rb-libsvm-1.0.7/lib/libsvm.rb'
 
 class PredictController < ApplicationController
   def init
