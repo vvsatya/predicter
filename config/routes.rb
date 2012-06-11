@@ -1,5 +1,6 @@
 Predicter::Application.routes.draw do
   get "predict/init"
+  post "predict/init"
 
   get "predict/run"
 
