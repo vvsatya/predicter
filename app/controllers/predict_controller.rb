@@ -42,8 +42,9 @@ class PredictController < ApplicationController
 
     dictionary = documents.map(&:last).map(&:split).flatten.uniq
     dictionary = dictionary.map { |x| x.gsub(/\?|,|\.|\-/,'') }
-
-    model = Libsvm::Model.load session[:model]
+    
+    model_file = params[:modelFile]
+    model = Libsvm::Model.load session[:model] unless model_file!=nil
     #"Why did the chicken cross the road? To get the worm"
     test_set = [1, params[:query]]
     test_document = test_set.last.split.map{ |x| x.gsub(/\?|,|\.|\-/,'') }
