@@ -45,7 +45,7 @@ class PredictController < ApplicationController
 
     model = Libsvm::Model.load session[:model]
     #"Why did the chicken cross the road? To get the worm"
-    test_set = [1, param[:query]]
+    test_set = [1, params[:query]]
     test_document = test_set.last.split.map{ |x| x.gsub(/\?|,|\.|\-/,'') }
 
     doc_features = dictionary.map{|x| test_document.include?(x) ? 1 : 0 }
