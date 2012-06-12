@@ -37,7 +37,7 @@ class PredictController < ApplicationController
   end
 
   def run
-    model = session[:model]
+    model = Libsvm::Model.load session[:model]
     test_set = [1, "Why did the chicken cross the road? To get the worm"]
     test_document = test_set.last.split.map{ |x| x.gsub(/\?|,|\.|\-/,'') }
 
