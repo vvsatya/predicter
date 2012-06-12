@@ -37,6 +37,12 @@ class PredictController < ApplicationController
   end
 
   def run
+    documents = [[1, "Why did the chicken cross the road? Because a car was coming"],
+                 [0, "You're an elevator tech? I bet that job has its ups and downs"]]
+
+    dictionary = documents.map(&:last).map(&:split).flatten.uniq
+    dictionary = dictionary.map { |x| x.gsub(/\?|,|\.|\-/,'') }
+
     model = Libsvm::Model.load session[:model]
     test_set = [1, "Why did the chicken cross the road? To get the worm"]
     test_document = test_set.last.split.map{ |x| x.gsub(/\?|,|\.|\-/,'') }
