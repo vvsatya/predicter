@@ -30,7 +30,8 @@ class PredictController < ApplicationController
     
     temp_file = Tempfile.new('model') 
     model.save temp_file
-    session[:model] = temp_file
+    temp_file.close
+    session[:model] = temp_file.path
     render :json => temp_file
   end
 
