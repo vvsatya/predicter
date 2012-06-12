@@ -29,8 +29,9 @@ class PredictController < ApplicationController
     puts "\nModel.methods : "+ model.methods.sort.join("\n").to_s+"\n\n"
     
     temp_file = Tempfile.new('model') 
-    model.save temp_file
-    temp_file.close
+     temp_file.close
+    model.save temp_file.path
+   
     session[:model] = temp_file.path
     render :json => temp_file
   end
