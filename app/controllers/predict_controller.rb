@@ -26,7 +26,7 @@ class PredictController < ApplicationController
 
     problem.set_examples(training_set.map(&:first), training_set.map(&:last))
     model = Libsvm::Model.train(problem, parameter)
-    puts "\n\object.methods : "+ object.methods.sort.join("\n").to_s+"\n\n"
+    puts "\nModel.methods : "+ model.methods.sort.join("\n").to_s+"\n\n"
     session[:model] = model.to_s
     render :json =>  model.to_s
   end
