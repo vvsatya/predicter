@@ -3,7 +3,7 @@ Predicter::Application.routes.draw do
   post "predict/init"
 
   get "predict/run"
-
+  post "predict/run"
   #get "home/index"
   root :to => "home#index"
   # The priority is based upon order of creation:
