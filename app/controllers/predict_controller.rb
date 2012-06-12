@@ -25,19 +25,19 @@ class PredictController < ApplicationController
     parameter.c   = 10
 
     problem.set_examples(training_set.map(&:first), training_set.map(&:last))
-    @@model = Libsvm::Model.train(problem, parameter)
-    @@GDICT = dictionary    
-    
-    render :json => "model created"
+    model = Libsvm::Model.train(problem, parameter)
+    puts "\n\object.methods : "+ object.methods.sort.join("\n").to_s+"\n\n"
+    session[:model] = model.to_s
+    render :json =>  model.to_s
   end
 
   def run
-    
+    model = session[:model]
     test_set = [1, "Why did the chicken cross the road? To get the worm"]
     test_document = test_set.last.split.map{ |x| x.gsub(/\?|,|\.|\-/,'') }
 
-    doc_features = @@GDICT.map{|x| test_document.include?(x) ? 1 : 0 }
-    pred = @@model.predict(Libsvm::Node.features(doc_features))
+    doc_features = dictionary.map{|x| test_document.include?(x) ? 1 : 0 }
+    pred = model.predict(Libsvm::Node.features(doc_features))
     render :json => "Predicted #{pred==1 ? 'funny' : 'not funny'}"
   end
 
