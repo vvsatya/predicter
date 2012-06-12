@@ -27,8 +27,11 @@ class PredictController < ApplicationController
     problem.set_examples(training_set.map(&:first), training_set.map(&:last))
     model = Libsvm::Model.train(problem, parameter)
     puts "\nModel.methods : "+ model.methods.sort.join("\n").to_s+"\n\n"
-    session[:model] = model.to_s
-    render :json =>  model.to_s
+    
+    temp_file = Tempfile.new('model') 
+    model.save temp_file
+    session[:model] = temp_file
+    render :json => temp_file
   end
 
   def run
